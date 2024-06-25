@@ -49,8 +49,10 @@ const useSimon = (): UseSimonReturnType => {
             userStepIndex: 0
           };
         } else { //just a successful step
-          //increment user position
-
+          return {
+            ...state,
+            userStepIndex: state.userStepIndex + 1
+          };
         }
       } else {//if user get the step wrong
         //change game status to end
