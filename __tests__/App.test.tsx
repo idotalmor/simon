@@ -11,15 +11,16 @@ import { it } from "@jest/globals";
 
 // Note: test renderer must be required after react-native.
 import renderer from "react-test-renderer";
-import useSimon from "../src/hooks/useSimon.ts";
+import { useSimon, standByObj, GameState } from "../src/hooks/useSimon.ts";
 import { act, renderHook } from "@testing-library/react-native";
 
 describe("simon game", () => {
   it("create new game,", () => {
     const { result } = renderHook(() => useSimon());
-    expect(result.current.sequence).toHaveLength(0);
-    act(()=>result.current.newGame());
-    expect(result.current.sequence).toHaveLength(1);
+    expect(result.current.state).toEqual(standByObj);
+    act(() => result.current.newGame());
+    expect(result.current.state).toMatchObject({ gameState: GameState.Playing, userStepIndex: 0 });
+    expect(result.current.state.sequence).toHaveLength(1);
   });
 });
 
