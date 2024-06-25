@@ -7,11 +7,10 @@
 
 import React from 'react';
 
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import SimonGameScreen from "./src/features/simonGame/components/SimonGameScreen.tsx";
-import { SafeAreaView } from "react-native";
+import SimonGameScreen from './src/features/simonGame/screens/SimonGameScreen.tsx';
 
 const Stack = createStackNavigator();
 

@@ -16,11 +16,8 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     margin: 5,
-    height:300,
-    justifyContent: 'center',
-    alignItems: 'center',
     borderRadius: 10,
-    aspectRatio: 1, // Ensures the button is square
+    aspectRatio: 1,
   },
 });
 
