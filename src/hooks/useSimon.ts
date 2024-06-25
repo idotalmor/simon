@@ -41,7 +41,7 @@ const useSimon = (): UseSimonReturnType => {
     if (state.gameState !== GameState.Playing) return false;
     setState(state => {
       if (selected === state.sequence[state.userStepIndex]) {//if step correct
-        if (state.userStepIndex === state.sequence.length - 1) {//was last in sequence
+        if (state.userStepIndex === state.sequence.length - 1) {//was last in round
           return {
             ...state,
             points: state.points + 1,
@@ -55,11 +55,13 @@ const useSimon = (): UseSimonReturnType => {
           };
         }
       } else {//if user get the step wrong
-        //change game status to end
+        return {
+          ...state,
+          gameState: GameState.End
+        };
       }
-
-      return state;
     });
+
     return true;
   };
 

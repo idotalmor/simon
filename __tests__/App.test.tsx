@@ -65,6 +65,22 @@ describe("simon game", () => {
     expect(result.current.state).toMatchObject(finishRoundState);
   });
 
+  it('user get wrong step', () =>{
+    const { result } = renderHook(() => useSimon());
+
+    //*fixture* - create a round with previous points
+    act(() => result.current.newGame());
+    act(() => {result.current.play(result.current.state.sequence[0]);});
+    const newRoundState: Partial<SimonState> = { gameState: GameState.Playing, userStepIndex: 0, points: 1 };
+    expect(result.current.state).toMatchObject(newRoundState);
+
+    // test
+    act(() => {result.current.play(-1);});
+    const endRoundState: Partial<SimonState> = { gameState: GameState.End, points: 1 };
+    expect(result.current.state).toMatchObject(endRoundState);
+
+  });
+
 });
 
 it("renders correctly", () => {
