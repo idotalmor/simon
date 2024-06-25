@@ -1,6 +1,6 @@
 import React from "react";
 import { useSimon } from "../hooks/useSimon";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, SafeAreaView, StyleSheet, View } from "react-native";
 import GridButton from "./GridButton";
 
 type UIGridButton = {
@@ -27,7 +27,7 @@ const buttons: UIGridButton[] = [
   }
 ];
 
-const SimonGame = () => {
+const SimonGameScreen = () => {
   const { state, play } = useSimon();
 
   const renderItem = ({ item }: { item: UIGridButton }) => {
@@ -35,17 +35,20 @@ const SimonGame = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        style={{height:"100%",width:"100%"}}
-        key={"safsdf"}
-        data={buttons}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.key.toString()}
-        numColumns={2}
-        contentContainerStyle={styles.grid}
-      />
-    </View>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <FlatList
+          style={{height:"100%",width:"100%"}}
+          key={"safsdf"}
+          data={buttons}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.key.toString()}
+          numColumns={2}
+          contentContainerStyle={styles.grid}
+        />
+      </View>
+    </SafeAreaView>
+
   );
 };
 
@@ -62,4 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SimonGame;
+export default SimonGameScreen;

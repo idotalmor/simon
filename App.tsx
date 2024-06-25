@@ -6,38 +6,28 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import SimonGame from "./src/features/simonGame/components/SimonGame.tsx";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+import SimonGameScreen from "./src/features/simonGame/components/SimonGameScreen.tsx";
+import { SafeAreaView } from "react-native";
 
+const Stack = createStackNavigator();
 
 function App(): React.JSX.Element {
-
   return (
-    <SafeAreaView>
-      <SimonGame/>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="SimonGame">
+        <Stack.Screen
+          name="SimonGame"
+          component={SimonGameScreen}
+          options={{ title: 'Simon Game' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
+
 }
 
 export default App;
