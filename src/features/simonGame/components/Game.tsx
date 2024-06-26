@@ -2,6 +2,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import GridButton from "./GridButton.tsx";
 import { SimonState } from "../models/models.ts";
+import useSequencePresenter from "../hooks/useSequencePresenter.ts";
 
 type UIGridButton = {
   key: number,
@@ -34,34 +35,12 @@ type GameProps = {
 
 const Game = ({ state, play }: GameProps) => {
 
-  const [presentedButton, setPresentedButton] = useState<number | null>(null);
-
-  useEffect(() => {
-    if (state.sequence.length > 0) {
-      let currentIndex = 0;
-
-      const interval = setInterval(() => {
-        if (currentIndex < state.sequence.length) {
-          setPresentedButton(state.sequence[currentIndex]);
-
-          setTimeout(() => {
-            setPresentedButton(null);
-            currentIndex++;
-            if (currentIndex >= state.sequence.length) {
-              clearInterval(interval);
-            }
-          }, 500); // 1 second display
-        }
-      }, 800); // 1 second press duration + 0.2 seconds delay between presses
-
-      return () => clearInterval(interval);
-    }
-  }, [state.sequence]);
+  const {presented,isPresenting} = useSequencePresenter({sequence: state.sequence });
 
   const renderItem = ({ item }: { item: UIGridButton }) => {
     return <GridButton
       key={item.key}
-      isPresented={presentedButton === item.key}
+      isPresented={presented === item.key}
       onPress={() => {play(item.key);}}
       color={item.color} />;
   };

@@ -13,7 +13,7 @@ import { useSimon } from "../hooks/useSimon.ts";
 import { GameState, SimonState, standByObj } from "../models/models.ts";
 
 describe("Simon game hook", () => {
-  it("create new game,", () => {
+  it("create new game", () => {
     const { result } = renderHook(() => useSimon());
 
     // Check standby mode before starting a new game
