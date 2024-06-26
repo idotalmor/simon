@@ -19,7 +19,7 @@ describe("redux - game reducer", () => {
 
 
   it("should handle addGame", () => {
-    const game: GameRecord = { name: "User1", points: 50 };
+    const game = { name: "User1", points: 50 };
     store.dispatch(addGame(game));
     const state: RootState = store.getState() as RootState;
     expect(state.game.games.length).toBe(1);

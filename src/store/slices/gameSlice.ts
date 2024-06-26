@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from 'uuid';
 
 type GameRecord = {
+  id: string;
   name: string;
   points: number;
 };
@@ -17,6 +19,7 @@ const gameSlice = createSlice({
   reducers: {
     addGame: (state, action: PayloadAction<{ name: string; points: number }>) => {
       const newGame = {
+        id: uuidv4(),
         name: action.payload.name,
         points: action.payload.points,
       };
