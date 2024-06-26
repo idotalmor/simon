@@ -69,5 +69,5 @@ const standByObj: SimonState = {
   points: 0
 };
 
-export { useSimon, GameState };
-export type {SimonState};
+export { useSimon, GameState, standByObj };
+export type { SimonState };

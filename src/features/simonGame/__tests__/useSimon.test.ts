@@ -9,8 +9,7 @@ import { it } from "@jest/globals";
 
 // Note: test renderer must be required after react-native.
 import { act, renderHook } from "@testing-library/react-native";
-import { useSimon } from "../hooks/useSimon.ts";
-import { GameState, SimonState, standByObj } from "../models/models.ts";
+import { GameState, SimonState, standByObj, useSimon } from "../hooks/useSimon.ts";
 
 describe("Simon game hook", () => {
   it("create new game", () => {
