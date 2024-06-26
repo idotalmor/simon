@@ -8,13 +8,13 @@ import Game from '../components/Game.tsx';
 
 const SimonGameScreen = () => {
 
-  const { state, newGame } = useSimon();
+  const { state, newGame, play } = useSimon();
 
   return (
     <SafeAreaView style={styles.container}>
       {state.gameState === GameState.Standby && <EmptyState onStartNewGame={newGame} />}
-      {state.gameState === GameState.Playing && <Game/>}
-
+      {state.gameState === GameState.End && <EmptyState onStartNewGame={newGame} />}
+      {state.gameState === GameState.Playing && <Game state={state} play={play}/>}
     </SafeAreaView>
 
   );
