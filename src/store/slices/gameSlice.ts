@@ -26,6 +26,11 @@ const gameSlice = createSlice({
 });
 
 export const {  addGame} = gameSlice.actions;
+export const selectTopGames = (state: GameRecordsState) =>
+  state.games
+    .slice()
+    .sort((a, b) => b.points - a.points)
+    .slice(0, 10);
 
 export default gameSlice.reducer;
 export type {GameRecord};
