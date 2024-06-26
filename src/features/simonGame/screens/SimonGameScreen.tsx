@@ -6,10 +6,10 @@ import EmptyState from "../components/EmptyState.tsx";
 import Game from "../components/Game.tsx";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../../App.tsx";
+import { RootStackParamList, Screens } from "../../../navigation.ts";
 
-type SimonGameScreenNavigationProp = StackNavigationProp<RootStackParamList, "SimonGame">;
-type SimonGameScreenRouteProp = RouteProp<RootStackParamList, "SimonGame">;
+type SimonGameScreenNavigationProp = StackNavigationProp<RootStackParamList, Screens.SimonGame>;
+type SimonGameScreenRouteProp = RouteProp<RootStackParamList, Screens.SimonGame>;
 
 type SimonGameScreenProps = {
   navigation: SimonGameScreenNavigationProp;
@@ -22,7 +22,7 @@ const SimonGameScreen = ({ navigation }: SimonGameScreenProps) => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          onPress={() => navigation.navigate("ResultScreen", {})}
+          onPress={() => navigation.navigate(Screens.ResultScreen, {})}
           style={styles.appBarButton}
         >
           <Text style={styles.appBarButtonText}>Results</Text>
@@ -35,9 +35,9 @@ const SimonGameScreen = ({ navigation }: SimonGameScreenProps) => {
 
   useEffect(() => {
     if (state.gameState === GameState.End) {
-      navigation.navigate("ResultScreen", { points: state.points });
+      navigation.navigate(Screens.ResultScreen, { points: state.points });
     }
-  }, [state.gameState, navigation]);
+  }, [state.gameState, navigation, state.points]);
 
   return (
     <SafeAreaView style={styles.container}>

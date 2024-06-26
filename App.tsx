@@ -12,25 +12,22 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import SimonGameScreen from './src/features/simonGame/screens/SimonGameScreen.tsx';
 import ResultsScreen from "./src/features/results/screens/ResultsScreen.tsx";
+import { RootStackParamList, Screens } from "./src/navigation.ts";
 
-type RootStackParamList = {
-  SimonGame: undefined;
-  ResultScreen: { points?: number | null };
-};
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 function App(): React.JSX.Element {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SimonGame">
+      <Stack.Navigator initialRouteName={Screens.SimonGame}>
         <Stack.Screen
-          name="SimonGame"
+          name={Screens.SimonGame}
           component={SimonGameScreen}
           options={{ title: 'Simon Game' }}
         />
         <Stack.Screen
-          name="ResultScreen"
+          name={Screens.ResultScreen}
           component={ResultsScreen}
           options={{ title: 'Results' }}
         />
@@ -41,4 +38,3 @@ function App(): React.JSX.Element {
 }
 
 export default App;
-export type {RootStackParamList}

@@ -1,11 +1,11 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, Text } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../../App.tsx";
 import { RouteProp } from "@react-navigation/native";
+import { RootStackParamList, Screens } from "../../../navigation.ts";
 
-type ResultsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'ResultScreen'>;
-type ResultsScreenRouteProp = RouteProp<RootStackParamList, 'ResultScreen'>;
+type ResultsScreenNavigationProp = StackNavigationProp<RootStackParamList, Screens.ResultScreen>;
+type ResultsScreenRouteProp = RouteProp<RootStackParamList, Screens.ResultScreen>;
 
 type ResultsScreenProps = {
   navigation: ResultsScreenNavigationProp;
