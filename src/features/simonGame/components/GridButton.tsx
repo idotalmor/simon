@@ -1,17 +1,42 @@
-import React from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { TouchableOpacity, StyleSheet, ViewStyle } from "react-native";
+import useSound from "../hooks/useSound.ts";
+
+type GridButtonModel = {
+  key: number,
+  color: string,
+  sound: string
+}
 
 type GridButtonProps = {
-  onPress: () => void;
-  color: string;
+  onPress: (play:number) => void;
+  model: GridButtonModel;
   isPresented: boolean;
   disabled?: boolean;
 };
 
-const GridButton = ({ onPress, color, isPresented, disabled }: GridButtonProps) => {
+const GridButton = ({ model, onPress, isPresented, disabled }: GridButtonProps) => {
+  const { playSound } = useSound(model.sound);
+
+  const handlePress = useCallback(() => {
+    playSound();
+    onPress(model.key);
+  }, [model.key, onPress, playSound]);
+
+  useEffect(() => {
+    if(isPresented){
+      playSound();
+    }
+  }, [isPresented,playSound]);
+
+  const buttonStyle = useMemo<ViewStyle>(() => ({
+    backgroundColor: model.color,
+    opacity: isPresented ? 0.3 : 1,
+  }), [model.color, isPresented]);
+
   return (
-    <TouchableOpacity style={[styles.button, { backgroundColor: color, opacity: isPresented ? 0.3 : 1 }]}
-                      onPress={onPress}
+    <TouchableOpacity style={[styles.button, buttonStyle]}
+                      onPress={handlePress}
                       disabled={disabled} />
   );
 };
@@ -26,3 +51,4 @@ const styles = StyleSheet.create({
 });
 
 export default GridButton;
+export type { GridButtonModel };

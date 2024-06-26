@@ -1,6 +1,14 @@
 import { useCallback, useState } from "react";
-import { GameState, SimonState, standByObj } from "../models/models.ts";
 import { getRandomNumber } from "../utils.ts";
+
+enum GameState {Standby, Playing, End}
+
+type SimonState = {
+  gameState: GameState;
+  sequence: number[];
+  userStepIndex: number,
+  points: number
+}
 
 type UseSimonReturnType = {
   state: SimonState;
@@ -54,4 +62,12 @@ const useSimon = (): UseSimonReturnType => {
   return { state, newGame, play };
 };
 
-export { useSimon };
+const standByObj: SimonState = {
+  gameState: GameState.Standby,
+  sequence: [],
+  userStepIndex: 0,
+  points: 0
+};
+
+export { useSimon, GameState };
+export type {SimonState};

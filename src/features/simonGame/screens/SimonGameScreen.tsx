@@ -1,8 +1,7 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 
-import { useSimon } from '../hooks/useSimon.ts';
-import { GameState } from '../models/models.ts';
+import { GameState, useSimon } from "../hooks/useSimon.ts";
 import EmptyState from '../components/EmptyState.tsx';
 import Game from '../components/Game.tsx';
 

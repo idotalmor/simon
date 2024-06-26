@@ -1,30 +1,30 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import GridButton from "./GridButton.tsx";
-import { SimonState } from "../models/models.ts";
+import React from "react";
+import GridButton, { GridButtonModel } from "./GridButton.tsx";
 import useSequencePresenter from "../hooks/useSequencePresenter.ts";
+import { SimonState } from "../hooks/useSimon.ts";
 
-type UIGridButton = {
-  key: number,
-  color: string,
-}
 
-const buttons: UIGridButton[] = [
+const buttons: GridButtonModel[] = [
   {
     key: 0,
-    color: "#006fee"
+    color: "#006fee",
+    sound: "blue.mp3"
   },
   {
     key: 1,
-    color: "#ee0000"
+    color: "#ee0000",
+    sound: "red.mp3"
   },
   {
     key: 2,
-    color: "#eece00"
+    color: "#eece00",
+    sound: "yellow.mp3"
   },
   {
     key: 3,
-    color: "#3cee00"
+    color: "#3cee00",
+    sound: "green.mp3"
   }
 ];
 
@@ -35,15 +35,15 @@ type GameProps = {
 
 const Game = ({ state, play }: GameProps) => {
 
-  const {presented,isPresenting} = useSequencePresenter({sequence: state.sequence });
+  const { presented, isPresenting } = useSequencePresenter({ sequence: state.sequence });
 
-  const renderItem = ({ item }: { item: UIGridButton }) => {
+  const renderItem = ({ item }: { item: GridButtonModel }) => {
     return <GridButton
       key={item.key}
       isPresented={presented === item.key}
-      onPress={() => {play(item.key);}}
-      disabled={isPresenting}
-      color={item.color} />;
+      model={item}
+      onPress={play}
+      disabled={isPresenting} />;
   };
 
   return (<View style={styles.container}>
@@ -64,6 +64,9 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center"
   },
-  grid: { backgroundColor:'#937b7a', height:'50%', width: "100%" }
+  grid: {
+    backgroundColor: "#937b7a",
+    height: "50%",
+    width: "100%" }
 });
 export default Game;

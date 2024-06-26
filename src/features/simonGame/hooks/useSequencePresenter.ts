@@ -6,15 +6,16 @@ type useSequencePresenterProps = {
   delayBetweenPresenting?: number;
 }
 
-type useSequencePresenterType = {
+type useSequencePresenterReturnType = {
   isPresenting: boolean;
   presented: number | null;
 };
+
 const useSequencePresenter = ({
                                 sequence,
                                 presentingTime = 500,
                                 delayBetweenPresenting = 300
-                              }: useSequencePresenterProps): useSequencePresenterType => {
+                              }: useSequencePresenterProps): useSequencePresenterReturnType => {
   const [isPresenting, setIsPresenting] = useState<boolean>(false);
   const [presented, setPresented] = useState<number | null>(null);
 
