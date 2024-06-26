@@ -38,24 +38,28 @@ const Game = ({ state, play }: GameProps) => {
   const { presented, isPresenting } = useSequencePresenter({ sequence: state.sequence });
 
   const renderItem = ({ item }: { item: GridButtonModel }) => {
-    return <GridButton
-      key={item.key}
-      isPresented={presented === item.key}
-      model={item}
-      onPress={play}
-      disabled={isPresenting} />;
+    return (
+      <GridButton
+        key={item.key}
+        isPresented={presented === item.key}
+        model={item}
+        onPress={play}
+        disabled={isPresenting} />
+    );
   };
 
-  return (<View style={styles.container}>
-    <FlatList
-      style={styles.grid}
-      data={buttons}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.key.toString()}
-      numColumns={2}
-    />
-    <Text style={styles.text}>Points: {state.points}</Text>
-  </View>);
+  return (
+    <View style={styles.container}>
+      <FlatList
+        style={styles.grid}
+        data={buttons}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.key.toString()}
+        numColumns={2}
+      />
+      <Text style={styles.text}>Points: {state.points}</Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -71,8 +75,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 30,
     fontWeight: "500",
-    paddingHorizontal:20,
-    paddingVertical:10
+    paddingHorizontal: 20,
+    paddingVertical: 10
   }
 });
 export default Game;

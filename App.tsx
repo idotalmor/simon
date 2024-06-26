@@ -11,8 +11,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import SimonGameScreen from './src/features/simonGame/screens/SimonGameScreen.tsx';
+import ResultsScreen from "./src/features/results/screens/ResultsScreen.tsx";
 
-const Stack = createStackNavigator();
+type RootStackParamList = {
+  SimonGame: undefined;
+  ResultScreen: undefined;
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 function App(): React.JSX.Element {
   return (
@@ -23,6 +29,11 @@ function App(): React.JSX.Element {
           component={SimonGameScreen}
           options={{ title: 'Simon Game' }}
         />
+        <Stack.Screen
+          name="ResultScreen"
+          component={ResultsScreen}
+          options={{ title: 'Results' }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -30,3 +41,4 @@ function App(): React.JSX.Element {
 }
 
 export default App;
+export type {RootStackParamList}

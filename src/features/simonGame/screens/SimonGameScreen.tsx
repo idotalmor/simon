@@ -1,11 +1,35 @@
-import React from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import React, { useLayoutEffect } from "react";
+import { Button, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { GameState, useSimon } from "../hooks/useSimon.ts";
 import EmptyState from "../components/EmptyState.tsx";
 import Game from "../components/Game.tsx";
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../../App.tsx";
 
-const SimonGameScreen = () => {
+type SimonGameScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SimonGame'>;
+type SimonGameScreenRouteProp = RouteProp<RootStackParamList, 'SimonGame'>;
+
+type SimonGameScreenProps = {
+  navigation: SimonGameScreenNavigationProp;
+  route: SimonGameScreenRouteProp;
+};
+
+const SimonGameScreen = ({ navigation }: SimonGameScreenProps) => {
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('ResultScreen')}
+          style={styles.appBarButton}
+        >
+          <Text style={styles.appBarButtonText}>Results</Text>
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
 
   const { state, newGame, play } = useSimon();
 
@@ -22,7 +46,18 @@ const SimonGameScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  }
+  },
+  appBarButton: {
+    marginRight: 10,
+    backgroundColor: '#0062f6',
+    paddingHorizontal:10,
+    paddingVertical:4,
+    borderRadius:10
+  },
+  appBarButtonText: {
+    color: '#ffffff',
+    fontWeight: 'bold',
+  },
 });
 
 export default SimonGameScreen;
