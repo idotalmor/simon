@@ -1,5 +1,5 @@
-import React, { useLayoutEffect } from "react";
-import { Button, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useLayoutEffect } from "react";
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import { GameState, useSimon } from "../hooks/useSimon.ts";
 import EmptyState from "../components/EmptyState.tsx";
@@ -8,8 +8,8 @@ import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../../App.tsx";
 
-type SimonGameScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SimonGame'>;
-type SimonGameScreenRouteProp = RouteProp<RootStackParamList, 'SimonGame'>;
+type SimonGameScreenNavigationProp = StackNavigationProp<RootStackParamList, "SimonGame">;
+type SimonGameScreenRouteProp = RouteProp<RootStackParamList, "SimonGame">;
 
 type SimonGameScreenProps = {
   navigation: SimonGameScreenNavigationProp;
@@ -22,16 +22,22 @@ const SimonGameScreen = ({ navigation }: SimonGameScreenProps) => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          onPress={() => navigation.navigate('ResultScreen')}
+          onPress={() => navigation.navigate("ResultScreen", {})}
           style={styles.appBarButton}
         >
           <Text style={styles.appBarButtonText}>Results</Text>
         </TouchableOpacity>
-      ),
+      )
     });
   }, [navigation]);
 
   const { state, newGame, play } = useSimon();
+
+  useEffect(() => {
+    if (state.gameState === GameState.End) {
+      navigation.navigate("ResultScreen", { points: state.points });
+    }
+  }, [state.gameState, navigation]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -49,15 +55,15 @@ const styles = StyleSheet.create({
   },
   appBarButton: {
     marginRight: 10,
-    backgroundColor: '#0062f6',
-    paddingHorizontal:10,
-    paddingVertical:4,
-    borderRadius:10
+    backgroundColor: "#0062f6",
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 10
   },
   appBarButtonText: {
-    color: '#ffffff',
-    fontWeight: 'bold',
-  },
+    color: "#ffffff",
+    fontWeight: "bold"
+  }
 });
 
 export default SimonGameScreen;

@@ -15,7 +15,7 @@ import ResultsScreen from "./src/features/results/screens/ResultsScreen.tsx";
 
 type RootStackParamList = {
   SimonGame: undefined;
-  ResultScreen: undefined;
+  ResultScreen: { points?: number | null };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
