@@ -54,19 +54,25 @@ const Game = ({ state, play }: GameProps) => {
       keyExtractor={(item) => item.key.toString()}
       numColumns={2}
     />
-    <Text>Points: {state.points}</Text>
+    <Text style={styles.text}>Points: {state.points}</Text>
   </View>);
 };
 
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: "100%",
-    alignItems: "center"
+    height: "100%"
   },
   grid: {
-    backgroundColor: "#937b7a",
-    height: "50%",
-    width: "100%" }
+    backgroundColor: "#919191",
+    flex: 1,
+    width: "100%"
+  },
+  text: {
+    fontSize: 30,
+    fontWeight: "500",
+    paddingHorizontal:20,
+    paddingVertical:10
+  }
 });
 export default Game;
