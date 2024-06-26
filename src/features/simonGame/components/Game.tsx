@@ -42,6 +42,7 @@ const Game = ({ state, play }: GameProps) => {
       key={item.key}
       isPresented={presented === item.key}
       onPress={() => {play(item.key);}}
+      disabled={isPresenting}
       color={item.color} />;
   };
 

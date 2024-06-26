@@ -5,12 +5,14 @@ type GridButtonProps = {
   onPress: () => void;
   color: string;
   isPresented: boolean;
+  disabled?: boolean;
 };
 
-const GridButton = ({ onPress, color, isPresented }: GridButtonProps) => {
+const GridButton = ({ onPress, color, isPresented, disabled }: GridButtonProps) => {
   return (
     <TouchableOpacity style={[styles.button, { backgroundColor: color, opacity: isPresented ? 0.3 : 1 }]}
-                      onPress={onPress} />
+                      onPress={onPress}
+                      disabled={disabled} />
   );
 };
 
