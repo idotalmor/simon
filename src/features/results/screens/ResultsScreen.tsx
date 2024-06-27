@@ -6,6 +6,7 @@ import { RootStackParamList, Screens } from "../../../navigation.ts";
 import { ResultsUIState, useResults } from "../hooks/useResults.ts";
 import EmptyState from "../components/EmptyState.tsx";
 import SaveGameModal from "../components/modals/SaveGameModal.tsx";
+import GameRecordsList from "../components/GameRecordsList.tsx";
 
 type ResultsScreenNavigationProp = StackNavigationProp<RootStackParamList, Screens.ResultScreen>;
 type ResultsScreenRouteProp = RouteProp<RootStackParamList, Screens.ResultScreen>;
@@ -40,6 +41,7 @@ const ResultsScreen = ({ route }: ResultsScreenProps) => {
   return (
     <SafeAreaView style={styles.container}>
       {state.uiState === ResultsUIState.Empty && <EmptyState />}
+      {state.uiState === ResultsUIState.List && <GameRecordsList games={state.games!}/>}
       <SaveGameModal isOpen={isModalVisible} saveGame={handleSaveGame} onClose={toggleModal} />
     </SafeAreaView>
 
