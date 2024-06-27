@@ -1,18 +1,27 @@
 import 'react-native';
 import {it} from '@jest/globals';
-import { renderHook } from "@testing-library/react-native";
+import { act, renderHook } from "@testing-library/react-native";
 import { ResultsUIState, useResults } from "../hooks/useResults.ts";
-import { useAppSelector } from "../../../store/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
+import { addGame } from "../../../store/slices/gameSlice.ts";
 
 jest.mock("../../../store/hooks", () => ({
   useAppSelector: jest.fn(),
+  useAppDispatch: jest.fn(),
 }));
 
+jest.mock('../../../store/slices/gameSlice', () => ({
+  ...jest.requireActual('../../../store/slices/gameSlice'),
+  addGame: jest.fn(),
+}));
 
-describe('Result hook',() =>{
+describe('useResults hook', () => {
+  let dispatch: jest.Mock;
 
   beforeEach(() => {
+    dispatch = jest.fn();
     (useAppSelector as jest.Mock).mockReset();
+    (useAppDispatch as jest.Mock).mockReturnValue(dispatch);
   });
 
 
@@ -33,5 +42,19 @@ describe('Result hook',() =>{
 
     expect(result.current.state.uiState).toBe(ResultsUIState.List);
     expect(result.current.state.games).toEqual([game]);
+  });
+
+  it('support addGame to store', () => {
+    (useAppSelector as jest.Mock).mockReturnValue([]);
+
+    const { result } = renderHook(() => useResults());
+
+    act(() => {
+      result.current.saveGame('TestUser', 100);
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(addGame.type);
+    expect(addGame).toHaveBeenCalledWith({"name": "TestUser", "points": 100});
+
   });
 });

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { GameRecord, selectTopGames } from "../../../store/slices/gameSlice.ts";
-import { useAppSelector } from "../../../store/hooks.ts";
+import { addGame, GameRecord, selectTopGames } from "../../../store/slices/gameSlice.ts";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks.ts";
 
 enum ResultsUIState {Empty, List}
 
@@ -9,10 +9,13 @@ type ResultState = {
   games?: GameRecord[]
 }
 type UseResultsReturnType = {
-  state: ResultState
+  state: ResultState,
+  saveGame: (name: string, points: number) => void
 }
+
 const useResults = (): UseResultsReturnType => {
   const topGames = useAppSelector(selectTopGames);
+  const dispatch = useAppDispatch();
 
   const [state, setState] = useState<ResultState>({ uiState: ResultsUIState.Empty });
 
@@ -24,7 +27,11 @@ const useResults = (): UseResultsReturnType => {
     }
   }, [topGames]);
 
-  return { state };
+  const saveGame = (name: string, points: number) => {
+    dispatch(addGame({ name, points }));
+  };
+
+  return { state, saveGame };
 };
 
 export { useResults, ResultsUIState };
