@@ -2,8 +2,6 @@ import 'react-native';
 import {it} from '@jest/globals';
 import { renderHook } from "@testing-library/react-native";
 import { ResultsUIState, useResults } from "../hooks/useResults.ts";
-import { configureStore } from "@reduxjs/toolkit";
-import gameReducer, { addGame } from "../../../store/slices/gameSlice.ts";
 import { useAppSelector } from "../../../store/hooks.ts";
 
 jest.mock("../../../store/hooks", () => ({

@@ -3,6 +3,8 @@ import { SafeAreaView, StyleSheet, Text } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList, Screens } from "../../../navigation.ts";
+import { ResultsUIState, useResults } from "../hooks/useResults.ts";
+import EmptyState from "../components/EmptyState.tsx";
 
 type ResultsScreenNavigationProp = StackNavigationProp<RootStackParamList, Screens.ResultScreen>;
 type ResultsScreenRouteProp = RouteProp<RootStackParamList, Screens.ResultScreen>;
@@ -14,10 +16,11 @@ type ResultsScreenProps = {
 const ResultsScreen = ({ route }: ResultsScreenProps) => {
   const { points  } = route.params;
 
+  const {state} = useResults();
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text> result screen ${points}</Text>
+      {state.uiState===ResultsUIState.Empty && <EmptyState/>}
     </SafeAreaView>
 
   );
