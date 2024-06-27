@@ -7,6 +7,7 @@ import Game from "../components/Game.tsx";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList, Screens } from "../../../navigation.ts";
+import GameEndState from "../components/GameEndState.tsx";
 
 type SimonGameScreenNavigationProp = StackNavigationProp<RootStackParamList, Screens.SimonGame>;
 type SimonGameScreenRouteProp = RouteProp<RootStackParamList, Screens.SimonGame>;
@@ -41,9 +42,9 @@ const SimonGameScreen = ({ navigation }: SimonGameScreenProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {(state.gameState === GameState.Standby || state.gameState === GameState.End) &&
-        <EmptyState onStartNewGame={newGame} />}
+      {state.gameState === GameState.Standby && <EmptyState onStartNewGame={newGame} />}
       {state.gameState === GameState.Playing && <Game state={state} play={play} />}
+      {state.gameState === GameState.End && <GameEndState onStartNewGame={newGame}/>}
     </SafeAreaView>
 
   );
