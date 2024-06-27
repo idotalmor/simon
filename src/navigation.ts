@@ -5,5 +5,5 @@ export enum Screens {
 
 export type RootStackParamList = {
   [Screens.SimonGame]: undefined;
-  [Screens.ResultScreen]: { points?: number | null };
+  [Screens.ResultScreen]: { points?: number | undefined };
 };
