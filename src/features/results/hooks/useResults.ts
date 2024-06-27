@@ -12,7 +12,7 @@ type UseResultsReturnType = {
   state: ResultState
 }
 const useResults = (): UseResultsReturnType => {
-  const topGames = useAppSelector((state) => selectTopGames(state.game));
+  const topGames = useAppSelector(selectTopGames);
 
   const [state, setState] = useState<ResultState>({ uiState: ResultsUIState.Empty });
 
