@@ -1,6 +1,6 @@
 // src/store/__tests__/gameState.test.ts
 import { configureStore } from "@reduxjs/toolkit";
-import gameReducer, { addGame, GameRecord, selectTopGames } from "../slices/gameSlice";
+import gameReducer, { addGame, selectTopGames } from "../slices/gameSlice";
 import { RootState } from "../store";
 
 describe("redux - game reducer", () => {
@@ -32,7 +32,7 @@ describe("redux - game reducer", () => {
       store.dispatch(addGame({ name: index.toString(), points: ele }));
     });
     const state: RootState = store.getState() as RootState;
-    const topGames = selectTopGames(state.game);
+    const topGames = selectTopGames(state);
     expect(topGames.length).toBe(10);
     const pointsArr = topGames.map(ele => ele.points);
     expect(pointsArr).toStrictEqual([99, 90, 89, 65, 54, 40, 39, 24, 23, 20]);

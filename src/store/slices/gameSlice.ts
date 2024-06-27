@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from 'uuid';
+import { RootState } from "../store.ts";
 
 type GameRecord = {
   id: string;
@@ -29,11 +30,18 @@ const gameSlice = createSlice({
 });
 
 export const {  addGame} = gameSlice.actions;
-export const selectTopGames = (state: GameRecordsState) =>
-  state.games
-    .slice()
-    .sort((a, b) => b.points - a.points)
-    .slice(0, 10);
+
+const getGameState = (state: RootState): GameRecordsState => state.game;
+
+export const selectTopGames= createSelector(
+  [getGameState],
+  (gameState) => {
+    return gameState.games
+      .slice()
+      .sort((a, b) => b.points - a.points)
+      .slice(0, 10);
+  }
+);
 
 export default gameSlice.reducer;
 export type {GameRecord};
