@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useState } from "react";
 type SaveGameModalProps = {
   isOpen: boolean;
   saveGame: (name: string) => void;
-  points:number |null|undefined;
   onClose: () => void;
 }
 const SaveGameModal = ({ isOpen, onClose, saveGame }: SaveGameModalProps) => {
