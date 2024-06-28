@@ -1,22 +1,12 @@
-import { device, element, by, expect } from 'detox';
-import { TEST_IDS } from "../src/constants/testIDs";
-import { getRandomNumber } from "../src/features/simonGame/utils.js"; // Import necessary modules from Detox
+import { device } from 'detox';
+import GameScreenTK from "./test-kit/GameScreenTK.ts";
+import ResultsScreenTK from "./test-kit/ResultsScreenTK.ts";
+import { pressBack, waitForTimer } from "./test-kit/Helper.ts";
 
-const waitForTimer = (ms:number) => new Promise(resolve => setTimeout(resolve, ms));
-export const pressBack = async () => {
-  if (device.getPlatform() === 'android') {
-    await device.pressBack();
-  } else {
-    await element(by.traits(['button']))
-      .atIndex(0)
-      .tap();
-  }
-};
+
 describe('E2E test', () => {
-
   beforeAll(async () => {
     await device.launchApp();
-
   });
 
   beforeEach(async () => {
@@ -24,82 +14,72 @@ describe('E2E test', () => {
   });
 
   it('navigation', async () => {
-    await expect(element(by.id(TEST_IDS.GAME_SCREEN.SCREEN))).toBeVisible();
-    await expect(element(by.id(TEST_IDS.GAME_SCREEN.RESULT_BTN))).toBeVisible();
-    await element(by.id(TEST_IDS.GAME_SCREEN.RESULT_BTN)).tap();
-    await expect(element(by.id(TEST_IDS.RESULTS_SCREEN.SCREEN))).toBeVisible();
+    await GameScreenTK.isVisible();
+    await GameScreenTK.tapResultsButton();
+    await ResultsScreenTK.isVisible();
   });
 
   it('skeleton', async () => {
-
     const presentTime = 800;
-    //assert game empty screen
-    await expect(element(by.id(TEST_IDS.GAME_SCREEN.SCREEN))).toBeVisible();
-    await expect(element(by.id(TEST_IDS.GAME_SCREEN.EMPTY_STATE))).toBeVisible();
 
-    //navigate to result screen
-    await expect(element(by.id(TEST_IDS.GAME_SCREEN.RESULT_BTN))).toBeVisible();
-    await element(by.id(TEST_IDS.GAME_SCREEN.RESULT_BTN)).tap();
+    // assert game empty screen
+    await GameScreenTK.isVisible();
+    await GameScreenTK.isEmptyStateVisible();
 
-    //assert result empty state
-    await expect(element(by.id(TEST_IDS.RESULTS_SCREEN.SCREEN))).toBeVisible();
-    await expect(element(by.id(TEST_IDS.RESULTS_SCREEN.EMPTY_STATE))).toBeVisible();
+    // navigate to result screen
+    await GameScreenTK.tapResultsButton();
 
-    //back to game state
+    // assert result empty state
+    await ResultsScreenTK.isVisible();
+    await ResultsScreenTK.isEmptyStateVisible();
+
+    // back to game state
     await pressBack();
 
-    //assert empty state
-    await expect(element(by.id(TEST_IDS.GAME_SCREEN.SCREEN))).toBeVisible();
-    await expect(element(by.id(TEST_IDS.GAME_SCREEN.EMPTY_STATE))).toBeVisible();
+    // assert empty state
+    await GameScreenTK.isVisible();
+    await GameScreenTK.isEmptyStateVisible();
 
-    //start new game
-    await expect(element(by.id(TEST_IDS.GAME_SCREEN.NEW_GAME_BTN))).toBeVisible();
-    await element(by.id(TEST_IDS.GAME_SCREEN.NEW_GAME_BTN)).tap();
+    // start new game
+    await GameScreenTK.tapNewGameButton();
 
-    //assert new game
-    await expect(element(by.id(TEST_IDS.GAME_SCREEN.GAME_STATE))).toBeVisible();
-    await expect(element(by.text('Points: 0'))).toBeVisible();
+    // assert new game
+    await GameScreenTK.isGameStateVisible();
+    await GameScreenTK.checkPoints(0);
 
-    //wait for end of presenting sequence
+    // wait for end of presenting sequence
     await waitForTimer(presentTime);
 
-    //tap on selected button (mock is 2)
-    await expect(element(by.id("button-2"))).toBeVisible();
-    await element(by.id("button-2")).tap();
+    // tap on selected button (mock is 2)
+    await GameScreenTK.play(2);
 
-    //assert points
-    await expect(element(by.text('Points: 1'))).toBeVisible();
+    // assert points
+    await GameScreenTK.checkPoints(1);
 
-    await waitForTimer(presentTime*2);
+    // wait for end of presenting sequence
+    await waitForTimer(presentTime * 2);
 
-    //pressing on the wrong button
-    await expect(element(by.id("button-1"))).toBeVisible();
-    await element(by.id("button-1")).tap();
+    // pressing on the wrong button
+    await GameScreenTK.play(1);
 
-    //assert result popup visibility
-    await expect(element(by.id(TEST_IDS.RESULTS_SCREEN.POPUP))).toBeVisible();
+    // assert result popup visibility
+    await ResultsScreenTK.isPopupVisible();
 
-    //add text to input
-    await expect(element(by.id(TEST_IDS.RESULTS_SCREEN.POPUP_INPUT))).toBeVisible();
-    await element(by.id(TEST_IDS.RESULTS_SCREEN.POPUP_INPUT)).typeText('Ido');
-    await expect(element(by.id(TEST_IDS.RESULTS_SCREEN.POPUP_INPUT))).toHaveText('Ido');
+    // add text to input
+    await ResultsScreenTK.enterTextInPopupInput('Ido');
 
-    //submit
-    await expect(element(by.id(TEST_IDS.RESULTS_SCREEN.POPUP_SUBMIT))).toBeVisible();
-    await element(by.id(TEST_IDS.RESULTS_SCREEN.POPUP_SUBMIT)).tap();
+    // submit
+    await ResultsScreenTK.submitPopup();
 
-
-    //assert list state
-    await expect(element(by.id(TEST_IDS.RESULTS_SCREEN.SCREEN))).toBeVisible();
-    await expect(element(by.id(TEST_IDS.RESULTS_SCREEN.LIST_STATE))).toBeVisible();
-
-    await expect(element(by.text('Ido : 1'))).toBeVisible();
+    // assert list state
+    await ResultsScreenTK.isVisible();
+    await ResultsScreenTK.isListStateVisible();
+    await ResultsScreenTK.checkScoreEntry('Ido : 1');
 
     await pressBack();
 
-    //assert empty state
-    await expect(element(by.id(TEST_IDS.GAME_SCREEN.SCREEN))).toBeVisible();
-    await expect(element(by.id(TEST_IDS.GAME_SCREEN.END_STATE))).toBeVisible();
-
+    // assert empty state
+    await GameScreenTK.isVisible();
+    await GameScreenTK.isEndStateVisible();
   });
 });
