@@ -8,6 +8,7 @@ import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList, Screens } from "../../../navigation.ts";
 import GameEndState from "../components/GameEndState.tsx";
+import { TEST_IDS } from "../../../constants/testIDs.ts";
 
 type SimonGameScreenNavigationProp = StackNavigationProp<RootStackParamList, Screens.SimonGame>;
 type SimonGameScreenRouteProp = RouteProp<RootStackParamList, Screens.SimonGame>;
@@ -23,6 +24,7 @@ const SimonGameScreen = ({ navigation }: SimonGameScreenProps) => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
+          testID={TEST_IDS.GAME_SCREEN.RESULT_BTN}
           onPress={() => navigation.navigate(Screens.ResultScreen, {})}
           style={styles.appBarButton}
         >
@@ -41,7 +43,7 @@ const SimonGameScreen = ({ navigation }: SimonGameScreenProps) => {
   }, [state.gameState, navigation, state.points]);
 
   return (
-    <SafeAreaView testID={"welcome"} style={styles.container}>
+    <SafeAreaView testID={TEST_IDS.GAME_SCREEN.SCREEN} style={styles.container}>
       {state.gameState === GameState.Standby && <EmptyState onStartNewGame={newGame} />}
       {state.gameState === GameState.Playing && <Game state={state} play={play} />}
       {state.gameState === GameState.End && <GameEndState onStartNewGame={newGame}/>}
