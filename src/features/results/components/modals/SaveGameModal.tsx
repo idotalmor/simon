@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: 20,
-    marginBottom: 20
+    marginBottom: 20,
+    color: 'black',
   },
   input: {
     width: "100%",
@@ -73,7 +74,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "gray",
     borderRadius: 5,
-    marginBottom: 20
+    marginBottom: 20,
+    color: 'black'
   }
 });
 

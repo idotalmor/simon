@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     marginBottom: 20,
+    color: 'black',
   },
 });
 export default GameEndState;

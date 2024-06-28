@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 24,
+    color: 'black',
     marginBottom: 20
   }
 });

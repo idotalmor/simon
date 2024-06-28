@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "500",
     paddingHorizontal: 20,
-    paddingVertical: 10
+    paddingVertical: 10,
+    color: 'black',
   }
 });
 export default Game;

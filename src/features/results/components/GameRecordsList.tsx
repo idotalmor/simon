@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9f9f9"
   },
   itemText: {
-    fontSize: 18
+    fontSize: 18,
+    color: 'black',
   }
 });
 export default GameRecordsList;
