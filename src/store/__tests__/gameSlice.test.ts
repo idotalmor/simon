@@ -1,4 +1,3 @@
-// src/store/__tests__/gameState.test.ts
 import { configureStore } from "@reduxjs/toolkit";
 import gameReducer, { addGame, selectTopGames } from "../slices/gameSlice";
 import { RootState } from "../store";

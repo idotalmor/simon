@@ -34,7 +34,7 @@ export const {  addGame} = gameSlice.actions;
 
 const getGameState = (state: RootState): GameRecordsState => state.game;
 
-export const selectTopGames= createSelector(
+export const selectTopGames = createSelector(
   [getGameState],
   (gameState) => {
     return gameState.games
