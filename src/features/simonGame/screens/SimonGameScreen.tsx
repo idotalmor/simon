@@ -41,7 +41,7 @@ const SimonGameScreen = ({ navigation }: SimonGameScreenProps) => {
   }, [state.gameState, navigation, state.points]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView testID={"welcome"} style={styles.container}>
       {state.gameState === GameState.Standby && <EmptyState onStartNewGame={newGame} />}
       {state.gameState === GameState.Playing && <Game state={state} play={play} />}
       {state.gameState === GameState.End && <GameEndState onStartNewGame={newGame}/>}
