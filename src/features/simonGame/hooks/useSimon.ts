@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { getRandomNumber } from "../utils.ts";
+import { getRandomNumber } from "../utils";
 
 enum GameState {Standby, Playing, End}
 

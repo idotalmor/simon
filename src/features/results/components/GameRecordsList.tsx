@@ -1,5 +1,6 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { GameRecord } from "../../../store/slices/gameSlice.ts";
+import { TEST_IDS } from "../../../constants/testIDs.ts";
 
 type GameRecordsListProps = {
   games: GameRecord[]
@@ -15,7 +16,9 @@ const GameRecordsList = ({ games }: GameRecordsListProps) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      testID={TEST_IDS.RESULTS_SCREEN.LIST_STATE}
+      style={styles.container}>
       <FlatList
         data={games}
         renderItem={renderItem}

@@ -1,5 +1,6 @@
 import { Button, Modal, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
+import { TEST_IDS } from "../../../../constants/testIDs.ts";
 
 type SaveGameModalProps = {
   isOpen: boolean;
@@ -25,16 +26,23 @@ const SaveGameModal = ({ isOpen, onClose, saveGame }: SaveGameModalProps) => {
       visible={isOpen}
       animationType="slide"
       transparent={true}>
-      <View style={styles.modalContainer}>
+      <View
+        testID={TEST_IDS.RESULTS_SCREEN.POPUP}
+        style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Enter your name</Text>
           <TextInput
+            testID={TEST_IDS.RESULTS_SCREEN.POPUP_INPUT}
             style={styles.input}
             placeholder="Username"
             value={username}
             onChangeText={setUsername}
           />
-          <Button title="Submit" onPress={handleSubmit} disabled={username === ""} />
+          <Button
+            testID={TEST_IDS.RESULTS_SCREEN.POPUP_SUBMIT}
+            title="Submit"
+            onPress={handleSubmit}
+            disabled={username === ""} />
         </View>
       </View>
     </Modal>

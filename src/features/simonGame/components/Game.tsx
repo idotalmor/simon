@@ -3,6 +3,7 @@ import React from "react";
 import GridButton, { GridButtonModel } from "./GridButton.tsx";
 import useSequencePresenter from "../hooks/useSequencePresenter.ts";
 import { SimonState } from "../hooks/useSimon.ts";
+import { TEST_IDS } from "../../../constants/testIDs.ts";
 
 
 const buttons: GridButtonModel[] = [
@@ -49,7 +50,9 @@ const Game = ({ state, play }: GameProps) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      testID={TEST_IDS.GAME_SCREEN.GAME_STATE}
+      style={styles.container}>
       <FlatList
         style={styles.grid}
         data={buttons}

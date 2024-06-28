@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { TEST_IDS } from "../../../constants/testIDs.ts";
 
 const EmptyState = () => {
   return (
-    <View style={styles.container}>
+    <View testID={TEST_IDS.RESULTS_SCREEN.EMPTY_STATE}
+          style={styles.container}>
       <Text style={styles.text}>No results yet</Text>
     </View>
   );

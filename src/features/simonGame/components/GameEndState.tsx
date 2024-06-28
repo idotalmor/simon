@@ -1,11 +1,14 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { TEST_IDS } from "../../../constants/testIDs.ts";
 
 type GameEndStateProps = {
   onStartNewGame: () => void;
 };
 const GameEndState = ({ onStartNewGame }: GameEndStateProps) => {
   return (
-    <View style={styles.container}>
+    <View
+      testID={TEST_IDS.GAME_SCREEN.END_STATE}
+      style={styles.container}>
       <Text style={styles.text}>Game Over!</Text>
       <Button title="Play again" onPress={onStartNewGame} />
     </View>

@@ -9,7 +9,7 @@ type GridButtonModel = {
 }
 
 type GridButtonProps = {
-  onPress: (play:number) => void;
+  onPress: (play: number) => void;
   model: GridButtonModel;
   isPresented: boolean;
   disabled?: boolean;
@@ -24,18 +24,19 @@ const GridButton = ({ model, onPress, isPresented, disabled }: GridButtonProps) 
   }, [model.key, onPress, playSound]);
 
   useEffect(() => {
-    if(isPresented){
+    if (isPresented) {
       playSound();
     }
-  }, [isPresented,playSound]);
+  }, [isPresented, playSound]);
 
   const buttonStyle = useMemo<ViewStyle>(() => ({
     backgroundColor: model.color,
-    opacity: isPresented ? 0.3 : 1,
+    opacity: isPresented ? 0.3 : 1
   }), [model.color, isPresented]);
 
   return (
-    <TouchableOpacity style={[styles.button, buttonStyle]}
+    <TouchableOpacity testID={`button-${model.key}`}
+                      style={[styles.button, buttonStyle]}
                       onPress={handlePress}
                       disabled={disabled} />
   );
